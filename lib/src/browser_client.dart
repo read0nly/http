@@ -42,7 +42,7 @@ class BrowserClient extends BaseClient {
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
-    var bytes = await request.finalize()!.toBytes();
+    var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
     xhr

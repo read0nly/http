@@ -37,7 +37,7 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      var response = await stream!.pipe(ioRequest) as HttpClientResponse;
+      var response = await stream.pipe(ioRequest) as HttpClientResponse;
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {

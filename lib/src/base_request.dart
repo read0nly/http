@@ -5,6 +5,8 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:meta/meta.dart';
+
 import 'byte_stream.dart';
 import 'client.dart';
 import 'streamed_response.dart';
@@ -94,16 +96,17 @@ abstract class BaseRequest {
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that emits the body of the request.
   ///
-  /// The base implementation of this returns null rather than a [ByteStream];
+  /// The base implementation of this returns an empty [ByteStream];
   /// subclasses are responsible for creating the return value, which should be
   /// single-subscription to ensure that no data is dropped. They should also
   /// freeze any additional mutable fields they add that don't make sense to
   /// change after the request headers are sent.
-  ByteStream? finalize() {
+  @mustCallSuper
+  ByteStream finalize() {
     // TODO(nweiz): freeze headers
     if (finalized) throw StateError("Can't finalize a finalized Request.");
     _finalized = true;
-    return null;
+    return const ByteStream(Stream.empty());
   }
 
   /// Sends this request.

@@ -19,41 +19,42 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
   @override
-  Future<Response> head(url, {Map<String, String>? headers}) =>
+  Future<Response> head(Object url, {Map<String, String>? headers}) =>
       _sendUnstreamed('HEAD', url, headers);
 
   @override
-  Future<Response> get(url, {Map<String, String>? headers}) =>
+  Future<Response> get(Object url, {Map<String, String>? headers}) =>
       _sendUnstreamed('GET', url, headers);
 
   @override
-  Future<Response> post(url,
-          {Map<String, String>? headers, body, Encoding? encoding}) =>
+  Future<Response> post(Object url,
+          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('POST', url, headers, body, encoding);
 
   @override
-  Future<Response> put(url,
-          {Map<String, String>? headers, body, Encoding? encoding}) =>
+  Future<Response> put(Object url,
+          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('PUT', url, headers, body, encoding);
 
   @override
-  Future<Response> patch(url,
-          {Map<String, String>? headers, body, Encoding? encoding}) =>
+  Future<Response> patch(Object url,
+          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('PATCH', url, headers, body, encoding);
 
   @override
-  Future<Response> delete(url, {Map<String, String>? headers}) =>
+  Future<Response> delete(Object url, {Map<String, String>? headers}) =>
       _sendUnstreamed('DELETE', url, headers);
 
   @override
-  Future<String> read(url, {Map<String, String>? headers}) async {
+  Future<String> read(Object url, {Map<String, String>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.body;
   }
 
   @override
-  Future<Uint8List> readBytes(url, {Map<String, String>? headers}) async {
+  Future<Uint8List> readBytes(Object url,
+      {Map<String, String>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.bodyBytes;
