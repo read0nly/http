@@ -15,6 +15,8 @@ class IOStreamedResponse extends StreamedResponse {
   /// Creates a new streaming response.
   ///
   /// [stream] should be a single-subscription stream.
+  ///
+  /// If [inner] is not provided, [detachSocket] will throw.
   IOStreamedResponse(Stream<List<int>> stream, int statusCode,
       {int? contentLength,
       BaseRequest? request,
@@ -33,5 +35,7 @@ class IOStreamedResponse extends StreamedResponse {
             reasonPhrase: reasonPhrase);
 
   /// Detaches the underlying socket from the HTTP server.
+  ///
+  /// Will throw if `inner` was not set or `null` when `this` was created.
   Future<Socket> detachSocket() async => _inner!.detachSocket();
 }
