@@ -30,10 +30,10 @@ abstract class BaseRequest {
   ///
   /// This defaults to `null`, which indicates that the size of the request is
   /// not known in advance. May not be assigned a negative value.
-  int get contentLength => _contentLength;
-  int _contentLength;
+  int? get contentLength => _contentLength;
+  int? _contentLength;
 
-  set contentLength(int value) {
+  set contentLength(int? value) {
     if (value != null && value < 0) {
       throw ArgumentError('Invalid content length $value.');
     }
@@ -99,7 +99,7 @@ abstract class BaseRequest {
   /// single-subscription to ensure that no data is dropped. They should also
   /// freeze any additional mutable fields they add that don't make sense to
   /// change after the request headers are sent.
-  ByteStream finalize() {
+  ByteStream? finalize() {
     // TODO(nweiz): freeze headers
     if (finalized) throw StateError("Can't finalize a finalized Request.");
     _finalized = true;

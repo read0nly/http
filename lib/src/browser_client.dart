@@ -42,7 +42,7 @@ class BrowserClient extends BaseClient {
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
-    var bytes = await request.finalize().toBytes();
+    var bytes = await request.finalize()!.toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
     xhr
@@ -52,16 +52,17 @@ class BrowserClient extends BaseClient {
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = Completer<StreamedResponse>();
+
+    // TODO(kevmoo): not sure what to do here...
+    // ignore: void_checks
     unawaited(xhr.onLoad.first.then((_) {
-      // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
-      // is fixed.
-      var blob = xhr.response as Blob ?? Blob([]);
+      var blob = xhr.response as Blob;
       var reader = FileReader();
 
       reader.onLoad.first.then((_) {
         var body = reader.result as Uint8List;
         completer.complete(StreamedResponse(
-            ByteStream.fromBytes(body), xhr.status,
+            ByteStream.fromBytes(body), xhr.status!,
             contentLength: body.length,
             request: request,
             headers: xhr.responseHeaders,
@@ -76,6 +77,8 @@ class BrowserClient extends BaseClient {
       reader.readAsArrayBuffer(blob);
     }));
 
+    // TODO(kevmoo): not sure what to do here...
+    // ignore: void_checks
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.

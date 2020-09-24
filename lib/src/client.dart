@@ -38,13 +38,13 @@ abstract class Client {
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> head(url, {Map<String, String> headers});
+  Future<Response> head(url, {Map<String, String>? headers});
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> get(url, {Map<String, String> headers});
+  Future<Response> get(url, {Map<String, String>? headers});
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -65,7 +65,7 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> post(url,
-      {Map<String, String> headers, body, Encoding encoding});
+      {Map<String, String>? headers, body, Encoding? encoding});
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -86,7 +86,7 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> put(url,
-      {Map<String, String> headers, body, Encoding encoding});
+      {Map<String, String>? headers, body, Encoding? encoding});
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -107,13 +107,13 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> patch(url,
-      {Map<String, String> headers, body, Encoding encoding});
+      {Map<String, String>? headers, body, Encoding? encoding});
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> delete(url, {Map<String, String> headers});
+  Future<Response> delete(url, {Map<String, String>? headers});
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -124,7 +124,7 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<String> read(url, {Map<String, String> headers});
+  Future<String> read(url, {Map<String, String>? headers});
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -135,7 +135,7 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<Uint8List> readBytes(url, {Map<String, String> headers});
+  Future<Uint8List> readBytes(url, {Map<String, String>? headers});
 
   /// Sends an HTTP request and asynchronously returns the response.
   Future<StreamedResponse> send(BaseRequest request);
